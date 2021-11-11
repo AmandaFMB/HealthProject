@@ -1,9 +1,18 @@
 /*
- A summary of the hardware connections are as follows: 
+ This example sketch gives you exactly what the SparkFun Pulse Oximiter and
+ Heart Rate Monitor is designed to do: read heart rate and blood oxygen levels.
+ This board requires I-squared-C connections but also connections to the reset
+ and mfio pins. When using the device keep LIGHT and CONSISTENT pressure on the
+ sensor. Otherwise you may crush the capillaries in your finger which results
+ in bad or no results. A summary of the hardware connections are as follows: 
  SDA -> SDA
  SCL -> SCL
  RESET -> PIN 4
  MFIO -> PIN 5
+
+ Author: Elias Santistevan
+ Date: 8/2019
+ SparkFun Electronics
 
  If you run into an error code check the following table to help diagnose your
  problem: 
@@ -29,7 +38,7 @@ SparkFun_Bio_Sensor_Hub bioHub(resPin, mfioPin);
 
 bioData body;  
 // ^^^^^^^^^
-// This is a type (like int, byte, long) unique to the SparkFun
+// What's this!? This is a type (like int, byte, long) unique to the SparkFun
 // Pulse Oximeter and Heart Rate Monitor. Unlike those other types it holds
 // specific information on your heartrate and blood oxygen levels. BioData is
 // actually a specific kind of type, known as a "struct". 
@@ -75,15 +84,15 @@ void setup(){
 void loop(){
 
     // Information from the readBpm function will be saved to our "body"
-    // variable.  
+    // variable.
+    //heartRate;confidence;oxygen;status  
     body = bioHub.readBpm();
-    Serial.print("HT: ");
-    Serial.println(body.heartRate); 
-    Serial.print("Conf: ");
-    Serial.println(body.confidence); 
-    Serial.print("O2: ");
-    Serial.println(body.oxygen); 
-    Serial.print("St: ");
+    Serial.print(body.heartRate); 
+    Serial.print(";");
+    Serial.print(body.confidence); 
+    Serial.print(";");
+    Serial.print(body.oxygen); 
+    Serial.print(";");
     Serial.println(body.status); 
     // Slow it down or your heart rate will go up trying to keep up
     // with the flow of numbers
